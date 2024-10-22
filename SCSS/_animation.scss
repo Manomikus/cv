@@ -1,0 +1,201 @@
+@use "media-queries" as *;
+%dot {
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  background: var(--dark);
+  top: -0.25rem;
+  transform: rotate(45deg);
+
+}
+
+.bar-skill-dot-fill {
+  @extend %dot;
+  animation: fill 5s alternate infinite;
+  @keyframes fill {
+    0% {
+      translate: 0;
+    }
+    33% {
+      translate: 3rem;
+    }
+    66% {
+      translate: 1rem;
+    }
+    100% {
+     translate:25rem;
+    }
+  }
+  @include xs{
+    @keyframes fill {
+      0% {
+        translate: 0;
+      }
+      33% {
+        translate: 3rem;
+      }
+      66% {
+        translate: 1rem;
+      }
+      100% {
+       translate:36.9rem;
+      }
+    }
+  }
+}
+
+
+.bar-skill-dot-fill1 {
+  @extend %dot;
+  animation: fill1 5s alternate infinite;
+  @keyframes fill1 {
+    0% {
+      translate: 0;
+    }
+    33% {
+      translate: 3rem;
+    }
+    66% {
+      translate: 1rem;
+    }
+    100% {
+      translate: 17.5rem;
+    }
+  }
+  @include xs{
+    @keyframes fill1 {
+      0% {
+        translate: 0;
+      }
+      33% {
+        translate: 3rem;
+      }
+      66% {
+        translate: 1rem;
+      }
+      100% {
+       translate:25.8rem;
+      }
+    }
+  }
+}
+
+.bar-skill-dot-fill2 {
+  @extend %dot;
+  animation: fill2 5s alternate infinite;
+  @keyframes fill2 {
+    0% {
+      translate: 0;
+    }
+    33% {
+      translate: 3rem;
+    }
+    66% {
+      translate: 1rem;
+    }
+    100% {
+      translate: 15rem;
+    }
+  }
+  @include xs{
+    @keyframes fill2 {
+      0% {
+        translate: 0;
+      }
+      33% {
+        translate: 3rem;
+      }
+      66% {
+        translate: 1rem;
+      }
+      100% {
+       translate:22.1rem;
+      }
+    }
+  }
+}
+
+%progress {
+  position: absolute;
+  height: 0.5rem;
+  top: 0;
+  left: 0;
+  background: var(--light);
+}
+.bar-skill-progress {
+  @extend %progress;
+  animation: bar 5s alternate infinite;
+  @keyframes bar {
+    0% {
+      width: 0;
+    }
+    33% {
+      width: 3rem;
+    }
+    66% {
+      width: 1rem;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+}
+.bar-skill-progress1 {
+  @extend %progress;
+  animation: bar1 5s alternate infinite;
+  @keyframes bar1 {
+    0% {
+      width: 0;
+    }
+    33% {
+      width: 3rem;
+    }
+    66% {
+      width: 1rem;
+    }
+    100% {
+      width: 70%;
+    }
+  }
+}
+.bar-skill-progress2 {
+  @extend %progress;
+  animation: bar2 5s alternate infinite;
+  @keyframes bar2 {
+    0% {
+      width: 0;
+    }
+    33% {
+      width: 3rem;
+    }
+    66% {
+      width: 1rem;
+    }
+    100% {
+      width: 60%;
+    }
+  }
+}
+@keyframes bounce{
+  0%{
+    transform:  rotate(-45deg);
+  }
+  10%{
+    transform: rotate(-35deg);
+  }
+  70%{
+    transform: rotate(20deg);
+  }
+  80%{
+    transform: rotate(-10deg);
+  }
+  90%{
+    transform: rotate(5deg);
+  }
+  100%{
+    transform: rotate(0);
+  }
+}
+
+  
+  

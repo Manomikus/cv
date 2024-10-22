@@ -1,0 +1,237 @@
+@use "reset";
+@use "base";
+@use "utils";
+@use "animation";
+@use "media-queries" as *;
+@use "classes";
+
+
+
+
+.grid-container {
+  min-height: 100vh;
+  display: grid;
+  grid:
+    "picture header" auto
+    "aside main" 1fr
+    "footer footer" /350px auto;
+  @include xs {
+    grid:
+      "header" auto
+      "main" auto
+      "picture" auto
+      "aside" auto
+      "footer" / auto;
+  }
+}
+
+header {
+  padding: 8rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  grid-area: header;
+  background: linear-gradient(to right, var(--dark), var(--light));
+  color: white;
+  font-weight: 300;
+  @include xs {
+    padding: 5rem 2rem 0;
+  }
+
+  h1 {
+    font-size: 6rem;
+    letter-spacing: 3rem;
+    @include xs {
+      font-size: 4rem;
+    }
+    
+  }
+  span {
+    display: inline-block;
+    animation: bounce 2s;
+  }
+  p {
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+  }
+}
+
+.picture {
+  background: var(--background);
+  grid-area: picture;
+  padding: 4rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .img {
+    background: url(../img/IMG_1412.jpg) center center/cover;
+    border-radius: 50%;
+    height: 28rem;
+    width: 28rem;
+  }
+}
+
+aside {
+  grid-area: aside;
+  background: var(--background);
+  border-right: 1px solid var(--border);
+  padding: 5rem;
+  .block {
+
+    margin-bottom: 5rem;
+    h3 {
+      margin-bottom: 0;
+      font-size: 1.4rem;
+    }
+    p {
+      margin: 0 0 2rem 0;
+      font-style: italic;
+    }
+    .bar-skill {
+      height: 0.5rem;
+      margin: 2rem 0;
+      background: var(--hint);
+      position: relative;
+    }
+    .stars-container {
+      color: var(--hint);
+      margin: 2rem 0 3rem 0;
+      display: flex;
+      i {
+        font-size: 2rem;
+        margin: 0 1rem;
+      }
+    }
+    .social-container {
+      display: flex;
+      padding: 1rem 1rem;
+      transition: all 0.2s;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      &:hover {
+        background: var(--border);
+        i {
+          color: var(--primary);
+          transform: scale(1.3);
+          transition: 0.2s;
+        }
+      }
+      p {
+        flex: auto;
+        margin: 0;
+      }
+      i {
+        flex: 0 0 50px;
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+main {
+  grid-area: main;
+  padding: 5rem;
+  text-align: justify;
+  @include xs{
+  padding: 5rem 2rem;
+}
+  h2 {
+    margin-bottom: 4rem;
+  }
+  p {
+    letter-spacing: 0.1rem;
+    line-height: 3rem;
+  }
+  .experience {
+    margin-bottom: 3rem;
+    display: flex;
+  }
+  .timeline {
+    text-align: center;
+    color: var(--hint);
+    padding: 0 2rem 0 0;
+  }
+  .content {
+    border-left: 1px solid var(--border);
+    padding: 0 2rem 2rem;
+
+    h3 {
+      color: black;
+    }
+    p {
+      margin: 2rem 0;
+    }
+    ul {
+      list-style-type: circle;
+      padding-left: 5rem;
+    }
+    span {
+      color: var(--hint);
+    }
+  }
+}
+footer {
+  grid-area: footer;
+  background: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 5rem;
+  @include xs{
+    padding: 3rem 0 3rem;
+  }
+  h2 {
+    margin-bottom: 3rem;
+    @include xs{
+      font-size: 2rem;
+      letter-spacing: 0.2rem;
+    } 
+  }
+  form {
+    display: flex;
+    align-items: center;
+    .prefix {
+      background: linear-gradient(to right, var(--dark), var(--light));
+      padding: 1rem 2rem;
+      color: white;
+      font-size: 2rem;
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
+    }
+    button {
+      background: var(--text);
+      border: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      &:hover {
+        opacity: 0.8;
+      }
+      .postfix {
+        background: linear-gradient(to right, var(--dark), var(--light));
+        padding: 1rem 2rem;
+        color: white;
+        font-size: 2rem;
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+      }
+    }
+
+    input {
+      outline: 0;
+      border: 0;
+      line-height: 2rem;
+      padding: 1rem 2rem;
+      &::placeholder {
+        color: var(--text);
+      }
+      @include xs {
+        min-width: 25rem;
+      }
+    }
+  }
+}

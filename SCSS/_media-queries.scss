@@ -1,0 +1,27 @@
+// pour les smartphones
+@mixin xs {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+// pour les tablettes
+@mixin sm {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+// pour les tablettes et large ecran
+@mixin md {
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px) {
+      @content;
+    }
+  }
+// Pour les ordinateurs de bureau
+@mixin xl {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}

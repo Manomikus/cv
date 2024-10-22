@@ -1,0 +1,28 @@
+.title {
+  &-samll {
+    letter-spacing: 0.5rem;
+    font-size: 1.7rem;
+  }
+}
+.text{
+    &-primary{
+        color: var(--primary);
+    }
+}
+.bar-skill-dot{
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    background: var(--dark);
+    top: -2.5px;
+    transform: rotate(45deg);
+    &-fill{
+        animation: fill 5s alternate  infinite;
+    }
+    &-fill1{
+    animation: fill1 5s alternate infinite;
+    }
+    &-fill2{
+    animation: fill2 5s alternate  infinite;
+    }
+}
