@@ -127,10 +127,16 @@
               <span class="i18n-inline fr">Voir les realisations</span>
               <span class="i18n-inline en">Explore projects</span>
             </a>
-            <a class="btn btn-ghost btn-attention btn-attention--contact" href="#contact">
+            <button
+              type="button"
+              class="btn btn-ghost btn-attention btn-attention--contact"
+              data-contact-trigger
+              aria-haspopup="dialog"
+              aria-controls="contact-menu"
+            >
               <span class="i18n-inline fr">Me contacter</span>
               <span class="i18n-inline en">Contact me</span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -582,11 +588,84 @@
           >Etien Cedric Manouan - External Consultant | Digital Transformation &amp; Business Tools</span
         >
       </p>
-      <a class="btn btn-primary btn-attention btn-attention--exchange" href="mailto:manouanec@gmail.com">
+      <button
+        type="button"
+        class="btn btn-primary btn-attention btn-attention--exchange"
+        data-contact-trigger
+        aria-haspopup="dialog"
+        aria-controls="contact-menu"
+      >
         <span class="i18n-inline fr">Demarrer un echange</span>
         <span class="i18n-inline en">Start a conversation</span>
-      </a>
+      </button>
     </footer>
+
+    <div class="contact-menu" id="contact-menu" hidden>
+      <button
+        type="button"
+        class="contact-menu-backdrop"
+        data-contact-dismiss
+        aria-label="Close contact options"
+      ></button>
+
+      <section class="contact-menu-panel" role="dialog" aria-modal="true" aria-labelledby="contact-menu-title">
+        <button type="button" class="contact-menu-close" data-contact-dismiss aria-label="Close contact options">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <p class="contact-menu-kicker">
+          <span class="i18n-inline fr">Canal de contact</span>
+          <span class="i18n-inline en">Contact channel</span>
+        </p>
+
+        <h3 id="contact-menu-title">
+          <span class="i18n-inline fr">Choisissez votre mode d'echange</span>
+          <span class="i18n-inline en">Choose your preferred contact mode</span>
+        </h3>
+
+        <p class="contact-menu-intro">
+          <span class="i18n-inline fr">Reponse rapide via email, WhatsApp ou appel direct.</span>
+          <span class="i18n-inline en">Fast response via email, WhatsApp, or direct call.</span>
+        </p>
+
+        <div class="contact-menu-actions">
+          <a class="contact-action contact-action--email" href="mailto:manouanec@gmail.com">
+            <span class="contact-action-icon" aria-hidden="true">@</span>
+            <span class="contact-action-copy">
+              <strong>
+                <span class="i18n-inline fr">Email pro</span>
+                <span class="i18n-inline en">Business email</span>
+              </strong>
+              <span>manouanec@gmail.com</span>
+            </span>
+          </a>
+
+          <a
+            class="contact-action contact-action--whatsapp"
+            href="https://wa.me/2250779805153?text=Bonjour%20Etien%2C%20je%20souhaite%20echanger%20avec%20vous."
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="contact-action-icon" aria-hidden="true">WA</span>
+            <span class="contact-action-copy">
+              <strong>WhatsApp</strong>
+              <span>+225 07 79 805 153</span>
+            </span>
+          </a>
+
+          <a class="contact-action contact-action--phone" href="tel:+2250779805153">
+            <span class="contact-action-icon" aria-hidden="true">TEL</span>
+            <span class="contact-action-copy">
+              <strong>
+                <span class="i18n-inline fr">Appel direct</span>
+                <span class="i18n-inline en">Direct call</span>
+              </strong>
+              <span>+225 07 79 805 153</span>
+            </span>
+          </a>
+        </div>
+      </section>
+    </div>
 
     <script src="./app.js"></script>
   </body>

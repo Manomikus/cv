@@ -6,8 +6,15 @@ const counters = document.querySelectorAll(".stat-value[data-target]");
 const revealElements = document.querySelectorAll(".reveal");
 const scrollProgressBar = document.getElementById("scroll-progress-bar");
 const presentationToggle = document.getElementById("presentation-toggle");
+const contactTriggers = document.querySelectorAll("[data-contact-trigger]");
+const contactMenu = document.getElementById("contact-menu");
+const contactMenuPanel = contactMenu?.querySelector(".contact-menu-panel") || null;
+const contactDismissButtons = contactMenu ? contactMenu.querySelectorAll("[data-contact-dismiss]") : [];
+const contactActionLinks = contactMenu ? contactMenu.querySelectorAll(".contact-action") : [];
 
 let currentLanguage = "fr";
+let lastContactTrigger = null;
+let contactHideTimer = null;
 
 const applyLanguage = (lang) => {
   const target = lang === "en" ? "en" : "fr";
@@ -159,6 +166,105 @@ if (presentationToggle) {
   });
 }
 
+const positionContactMenu = () => {
+  if (!contactMenuPanel || !(lastContactTrigger instanceof HTMLElement)) {
+    return;
+  }
+
+  if (window.innerWidth <= 820) {
+    contactMenuPanel.style.removeProperty("--contact-panel-left");
+    contactMenuPanel.style.removeProperty("--contact-panel-top");
+    return;
+  }
+
+  const panelWidth = Math.min(360, window.innerWidth - 24);
+  const panelHeight = contactMenuPanel.offsetHeight || 360;
+  const triggerRect = lastContactTrigger.getBoundingClientRect();
+  const safeMargin = 12;
+
+  let left = triggerRect.left + triggerRect.width / 2 - panelWidth / 2;
+  left = Math.max(safeMargin, Math.min(left, window.innerWidth - panelWidth - safeMargin));
+
+  let top = triggerRect.bottom + 12;
+  if (top + panelHeight > window.innerHeight - safeMargin) {
+    top = triggerRect.top - panelHeight - 12;
+  }
+  top = Math.max(safeMargin, top);
+
+  contactMenuPanel.style.setProperty("--contact-panel-left", `${left}px`);
+  contactMenuPanel.style.setProperty("--contact-panel-top", `${top}px`);
+};
+
+const closeContactMenu = (focusTrigger = true) => {
+  if (!contactMenu) {
+    return;
+  }
+
+  contactMenu.classList.remove("is-open");
+  body.classList.remove("contact-menu-open");
+
+  if (contactHideTimer) {
+    clearTimeout(contactHideTimer);
+  }
+
+  contactHideTimer = window.setTimeout(() => {
+    if (contactMenu.classList.contains("is-open")) {
+      return;
+    }
+    contactMenu.hidden = true;
+  }, 240);
+
+  if (focusTrigger && lastContactTrigger instanceof HTMLElement) {
+    lastContactTrigger.focus();
+  }
+};
+
+const openContactMenu = (trigger) => {
+  if (!contactMenu) {
+    return;
+  }
+
+  if (contactHideTimer) {
+    clearTimeout(contactHideTimer);
+    contactHideTimer = null;
+  }
+
+  lastContactTrigger = trigger instanceof HTMLElement ? trigger : null;
+  contactMenu.hidden = false;
+  positionContactMenu();
+
+  requestAnimationFrame(() => {
+    contactMenu.classList.add("is-open");
+    body.classList.add("contact-menu-open");
+  });
+};
+
+contactTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    event.preventDefault();
+    openContactMenu(trigger);
+  });
+});
+
+contactDismissButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    closeContactMenu();
+  });
+});
+
+contactActionLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    closeContactMenu(false);
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || !contactMenu || contactMenu.hidden) {
+    return;
+  }
+  closeContactMenu();
+});
+
 const updateScrollProgress = () => {
   if (!scrollProgressBar) {
     return;
@@ -181,6 +287,9 @@ const onScroll = () => {
   requestAnimationFrame(() => {
     updateScrollProgress();
     updateActiveNavLink();
+    if (contactMenu && !contactMenu.hidden) {
+      positionContactMenu();
+    }
     scrollTicking = false;
   });
 };
@@ -191,4 +300,7 @@ window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", () => {
   updateScrollProgress();
   updateActiveNavLink();
+  if (contactMenu && !contactMenu.hidden) {
+    positionContactMenu();
+  }
 });
