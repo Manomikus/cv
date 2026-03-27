@@ -101,7 +101,7 @@ img {
   position: sticky;
   top: 6px;
   z-index: 20;
-  width: min(1240px, calc(100% - 34px));
+  max-width: 1240px;
   margin: 12px auto 0;
   padding: 12px 20px;
   display: grid;
