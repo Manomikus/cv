@@ -185,26 +185,27 @@ body.is-loading {
 
 .preloader-wording span {
   position: absolute;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: clamp(1.8rem, 8vw, 6.2rem);
+  font-size: clamp(2.3rem, 8.4vw, 6.9rem);
+  line-height: 0.95;
   background: linear-gradient(120deg, #0f766e, #0ea5e9, #f97316);
   -webkit-background-clip: text;
   color: transparent;
   filter: drop-shadow(0 8px 24px rgba(8, 26, 43, 0.24));
   opacity: 0;
   transform: translateY(18px) scale(0.985);
-  animation: preloader-word 3.3s ease-in-out infinite;
+  animation: preloader-word 2.7s ease-in-out infinite;
 }
 
 .preloader-wording span:nth-child(2) {
-  animation-delay: 1.1s;
+  animation-delay: 0.9s;
 }
 
 .preloader-wording span:nth-child(3) {
-  animation-delay: 2.2s;
+  animation-delay: 1.8s;
 }
 
 .preloader-signature {
@@ -226,11 +227,11 @@ body.is-loading {
   margin: 0;
   white-space: nowrap;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   font-size: clamp(0.62rem, 1.25vw, 0.86rem);
   color: rgba(56, 78, 100, 0.72);
   transform: translateX(-50%);
-  animation: preloader-stream 10s linear infinite;
+  animation: preloader-stream 2.8s ease-in-out infinite;
 }
 
 .preloader.is-hidden .preloader-typography {
@@ -1656,13 +1657,13 @@ body.theme-dark.presentation-mode .scroll-progress {
 
 @keyframes preloader-word {
   0%,
-  30%,
+  34%,
   100% {
     opacity: 0;
     transform: translateY(18px) scale(0.982);
   }
-  8%,
-  22% {
+  10%,
+  24% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
@@ -1696,10 +1697,13 @@ body.theme-dark.presentation-mode .scroll-progress {
 
 @keyframes preloader-stream {
   0% {
-    transform: translateX(-50%);
+    opacity: 0.44;
+  }
+  50% {
+    opacity: 0.82;
   }
   100% {
-    transform: translateX(-54%);
+    opacity: 0.44;
   }
 }
 
