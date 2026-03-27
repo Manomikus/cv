@@ -848,7 +848,7 @@ h3 {
 }
 
 .skills-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .skill-panel,
@@ -949,7 +949,7 @@ h3 {
 }
 
 .mission-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .mission-card p {
@@ -959,7 +959,7 @@ h3 {
 }
 
 .edu-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .footer {
