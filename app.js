@@ -5,6 +5,7 @@ const navLinks = document.querySelectorAll("[data-nav-link]");
 const counters = document.querySelectorAll(".stat-value[data-target]");
 const revealElements = document.querySelectorAll(".reveal");
 const scrollProgressBar = document.getElementById("scroll-progress-bar");
+const preloader = document.getElementById("preloader");
 const themeToggle = document.getElementById("theme-toggle");
 const presentationToggle = document.getElementById("presentation-toggle");
 const backToTopButton = document.getElementById("back-to-top");
@@ -137,6 +138,42 @@ const updateActiveNavLink = () => {
     link.classList.toggle("is-active", isActive);
   });
 };
+
+function setupPreloader() {
+  if (!preloader) {
+    body.classList.remove("is-loading");
+    return;
+  }
+
+  let didClose = false;
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const minimumVisibleMs = prefersReducedMotion ? 420 : 1400;
+
+  const closePreloader = () => {
+    if (didClose) {
+      return;
+    }
+
+    didClose = true;
+    preloader.classList.add("is-hidden");
+    body.classList.remove("is-loading");
+
+    window.setTimeout(() => {
+      preloader.remove();
+    }, prefersReducedMotion ? 120 : 620);
+  };
+
+  const scheduleClose = () => {
+    window.setTimeout(closePreloader, minimumVisibleMs);
+  };
+
+  if (document.readyState === "complete") {
+    scheduleClose();
+  } else {
+    window.addEventListener("load", scheduleClose, { once: true });
+    window.setTimeout(closePreloader, minimumVisibleMs + 1800);
+  }
+}
 
 function updateThemeButtonLabel() {
   if (!themeToggle) {
@@ -409,6 +446,7 @@ updateScrollProgress();
 updateActiveNavLink();
 updateBackToTopButtonLabel();
 updateBackToTopVisibility();
+setupPreloader();
 setupMagneticCards();
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", () => {
