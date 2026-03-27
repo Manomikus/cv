@@ -147,6 +147,11 @@ img {
   text-transform: uppercase;
 }
 
+.magnetic {
+  will-change: transform;
+  transition: transform 0.22s ease;
+}
+
 .topnav {
   display: flex;
   justify-content: center;

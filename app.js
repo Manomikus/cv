@@ -12,7 +12,7 @@ const contactMenuPanel = contactMenu?.querySelector(".contact-menu-panel") || nu
 const contactDismissButtons = contactMenu ? contactMenu.querySelectorAll("[data-contact-dismiss]") : [];
 const contactActionLinks = contactMenu ? contactMenu.querySelectorAll(".contact-action") : [];
 const magneticCards = document.querySelectorAll(
-  ".project-card, .timeline-item, .skill-panel, .edu-card, .mission-card"
+  ".magnetic, .project-card, .timeline-item, .skill-panel, .edu-card, .mission-card"
 );
 
 let currentLanguage = "fr";
