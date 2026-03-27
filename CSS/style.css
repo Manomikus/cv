@@ -795,6 +795,12 @@ body.presentation-mode .scroll-progress {
     border-radius: 20px;
   }
 
+  .hero-copy,
+  .profile-card,
+  .section {
+    padding: 20px;
+  }
+
   .stats,
   .project-grid,
   .skills-grid,
