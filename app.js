@@ -143,8 +143,8 @@ function updatePresentationButtonLabel() {
   const text =
     currentLanguage === "fr"
       ? isPresentationMode
-        ? "Quitter le mode presentation"
-        : "Mode presentation"
+        ? "Quitter le mode présentation"
+        : "Mode présentation"
       : isPresentationMode
         ? "Exit presentation mode"
         : "Presentation mode";
