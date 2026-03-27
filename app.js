@@ -5,9 +5,13 @@ const navLinks = document.querySelectorAll("[data-nav-link]");
 const counters = document.querySelectorAll(".stat-value[data-target]");
 const revealElements = document.querySelectorAll(".reveal");
 const scrollProgressBar = document.getElementById("scroll-progress-bar");
+const presentationToggle = document.getElementById("presentation-toggle");
+
+let currentLanguage = "fr";
 
 const applyLanguage = (lang) => {
   const target = lang === "en" ? "en" : "fr";
+  currentLanguage = target;
 
   body.classList.toggle("lang-fr", target === "fr");
   body.classList.toggle("lang-en", target === "en");
@@ -20,6 +24,7 @@ const applyLanguage = (lang) => {
   });
 
   window.localStorage.setItem("cv-language", target);
+  updatePresentationButtonLabel();
 };
 
 langButtons.forEach((button) => {
@@ -117,6 +122,41 @@ navLinks.forEach((link) => {
   }
   navObserver.observe(section);
 });
+
+function updatePresentationButtonLabel() {
+  if (!presentationToggle) {
+    return;
+  }
+
+  const isPresentationMode = body.classList.contains("presentation-mode");
+  const text =
+    currentLanguage === "fr"
+      ? isPresentationMode
+        ? "Quitter le mode presentation"
+        : "Mode presentation"
+      : isPresentationMode
+        ? "Exit presentation mode"
+        : "Presentation mode";
+
+  presentationToggle.textContent = text;
+  presentationToggle.classList.toggle("is-active", isPresentationMode);
+}
+
+function setPresentationMode(enabled) {
+  body.classList.toggle("presentation-mode", enabled);
+  window.localStorage.setItem("cv-v1-presentation-mode", enabled ? "on" : "off");
+  updatePresentationButtonLabel();
+}
+
+if (presentationToggle) {
+  const savedMode = window.localStorage.getItem("cv-v1-presentation-mode");
+  setPresentationMode(savedMode === "on");
+
+  presentationToggle.addEventListener("click", () => {
+    const nextState = !body.classList.contains("presentation-mode");
+    setPresentationMode(nextState);
+  });
+}
 
 const updateScrollProgress = () => {
   if (!scrollProgressBar) {

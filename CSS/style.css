@@ -105,9 +105,9 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 18px 32px;
+  padding: 16px 22px;
   margin: 0 auto;
-  max-width: 1240px;
+  width: min(1320px, calc(100% - 34px));
   backdrop-filter: blur(14px);
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.7);
@@ -178,6 +178,34 @@ img {
   padding: 4px;
 }
 
+.topbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.presentation-btn {
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: rgba(255, 255, 255, 0.75);
+  color: #1f3f59;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.presentation-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+}
+
+.presentation-btn.is-active {
+  background: linear-gradient(130deg, var(--teal), #0d9488);
+  color: #ffffff;
+  border-color: transparent;
+}
+
 .lang-btn {
   border: 0;
   background: transparent;
@@ -196,9 +224,9 @@ img {
 
 main,
 .footer {
-  max-width: 1240px;
+  width: min(1320px, calc(100% - 34px));
   margin: 0 auto;
-  padding: 22px 32px;
+  padding: 22px 0;
 }
 
 .hero {
@@ -654,6 +682,36 @@ body.lang-en .i18n-block.en {
   display: block;
 }
 
+body.presentation-mode {
+  background: #f7fafc;
+}
+
+body.presentation-mode .bg-orb,
+body.presentation-mode .bg-grid {
+  display: none;
+}
+
+body.presentation-mode .topbar {
+  position: static;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body.presentation-mode .hero-copy,
+body.presentation-mode .profile-card,
+body.presentation-mode .section,
+body.presentation-mode .footer {
+  box-shadow: none;
+  border: 1px solid #dbe6ef;
+  background: #ffffff;
+}
+
+body.presentation-mode .scroll-progress {
+  opacity: 0.45;
+}
+
 @keyframes float {
   0%,
   100% {
@@ -695,10 +753,16 @@ body.lang-en .i18n-block.en {
     flex-wrap: wrap;
   }
 
+  .topbar-actions {
+    order: 4;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   main,
   .footer {
-    padding-left: 18px;
-    padding-right: 18px;
+    width: min(1320px, calc(100% - 20px));
   }
 
   .hero-copy,
