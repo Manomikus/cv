@@ -3,6 +3,7 @@ const html = document.documentElement;
 const langButtons = document.querySelectorAll("[data-lang-btn]");
 const counters = document.querySelectorAll(".stat-value[data-target]");
 const revealElements = document.querySelectorAll(".reveal");
+const scrollProgressBar = document.getElementById("scroll-progress-bar");
 
 const applyLanguage = (lang) => {
   const target = lang === "en" ? "en" : "fr";
@@ -86,3 +87,32 @@ const counterObserver = new IntersectionObserver(
 counters.forEach((counter) => {
   counterObserver.observe(counter);
 });
+
+const updateScrollProgress = () => {
+  if (!scrollProgressBar) {
+    return;
+  }
+
+  const top = window.scrollY;
+  const height = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = height > 0 ? Math.min(top / height, 1) : 0;
+
+  scrollProgressBar.style.width = `${ratio * 100}%`;
+};
+
+let scrollTicking = false;
+const onScroll = () => {
+  if (scrollTicking) {
+    return;
+  }
+
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    updateScrollProgress();
+    scrollTicking = false;
+  });
+};
+
+updateScrollProgress();
+window.addEventListener("scroll", onScroll, { passive: true });
+window.addEventListener("resize", updateScrollProgress);
