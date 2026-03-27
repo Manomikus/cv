@@ -5,6 +5,7 @@ const navLinks = document.querySelectorAll("[data-nav-link]");
 const counters = document.querySelectorAll(".stat-value[data-target]");
 const revealElements = document.querySelectorAll(".reveal");
 const scrollProgressBar = document.getElementById("scroll-progress-bar");
+const themeToggle = document.getElementById("theme-toggle");
 const presentationToggle = document.getElementById("presentation-toggle");
 const contactTriggers = document.querySelectorAll("[data-contact-trigger]");
 const contactMenu = document.getElementById("contact-menu");
@@ -14,6 +15,7 @@ const contactActionLinks = contactMenu ? contactMenu.querySelectorAll(".contact-
 const magneticCards = document.querySelectorAll(
   ".magnetic, .project-card, .timeline-item, .skill-panel, .edu-card, .mission-card"
 );
+const themeMediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
 let currentLanguage = "fr";
 let lastContactTrigger = null;
@@ -34,6 +36,7 @@ const applyLanguage = (lang) => {
   });
 
   window.localStorage.setItem("cv-language", target);
+  updateThemeButtonLabel();
   updatePresentationButtonLabel();
 };
 
@@ -133,6 +136,54 @@ const updateActiveNavLink = () => {
     link.classList.toggle("is-active", isActive);
   });
 };
+
+function updateThemeButtonLabel() {
+  if (!themeToggle) {
+    return;
+  }
+
+  const isDarkMode = body.classList.contains("theme-dark");
+  const text =
+    currentLanguage === "fr" ? (isDarkMode ? "Mode clair" : "Mode nuit") : isDarkMode ? "Light mode" : "Dark mode";
+
+  themeToggle.textContent = text;
+  themeToggle.classList.toggle("is-active", isDarkMode);
+  themeToggle.setAttribute("aria-pressed", isDarkMode ? "true" : "false");
+}
+
+function applyTheme(theme) {
+  const target = theme === "dark" ? "dark" : "light";
+  body.classList.toggle("theme-dark", target === "dark");
+  body.classList.toggle("theme-light", target === "light");
+  updateThemeButtonLabel();
+}
+
+const savedTheme = window.localStorage.getItem("cv-v1-theme");
+const systemTheme = () => (themeMediaQuery?.matches ? "dark" : "light");
+applyTheme(savedTheme === "dark" || savedTheme === "light" ? savedTheme : systemTheme());
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = body.classList.contains("theme-dark") ? "light" : "dark";
+    applyTheme(nextTheme);
+    window.localStorage.setItem("cv-v1-theme", nextTheme);
+  });
+}
+
+if (themeMediaQuery) {
+  const syncSystemTheme = (event) => {
+    if (window.localStorage.getItem("cv-v1-theme")) {
+      return;
+    }
+    applyTheme(event.matches ? "dark" : "light");
+  };
+
+  if (typeof themeMediaQuery.addEventListener === "function") {
+    themeMediaQuery.addEventListener("change", syncSystemTheme);
+  } else if (typeof themeMediaQuery.addListener === "function") {
+    themeMediaQuery.addListener(syncSystemTheme);
+  }
+}
 
 function updatePresentationButtonLabel() {
   if (!presentationToggle) {
