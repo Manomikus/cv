@@ -230,6 +230,39 @@ main,
   padding: 22px 0;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+main > .hero {
+  order: 0;
+}
+
+main > #projects {
+  order: 1;
+}
+
+main > #experience {
+  order: 2;
+}
+
+main > #mission {
+  order: 3;
+}
+
+main > #skills {
+  order: 4;
+}
+
+main > #education {
+  order: 5;
+}
+
+main > section[id] {
+  scroll-margin-top: 122px;
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1.18fr 0.82fr;

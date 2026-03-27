@@ -94,34 +94,35 @@ counters.forEach((counter) => {
   counterObserver.observe(counter);
 });
 
-const navObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        return;
-      }
+const navSections = Array.from(navLinks)
+  .map((link) => {
+    const targetId = link.getAttribute("href")?.replace("#", "");
+    if (!targetId) {
+      return null;
+    }
+    return document.getElementById(targetId);
+  })
+  .filter((section) => section instanceof HTMLElement);
 
-      const sectionId = entry.target.id;
-      navLinks.forEach((link) => {
-        const isActive = link.getAttribute("href") === `#${sectionId}`;
-        link.classList.toggle("is-active", isActive);
-      });
-    });
-  },
-  { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
-);
-
-navLinks.forEach((link) => {
-  const targetId = link.getAttribute("href")?.replace("#", "");
-  if (!targetId) {
+const updateActiveNavLink = () => {
+  if (!navLinks.length || !navSections.length) {
     return;
   }
-  const section = document.getElementById(targetId);
-  if (!section) {
-    return;
-  }
-  navObserver.observe(section);
-});
+
+  const probeY = window.scrollY + window.innerHeight * 0.35;
+  let activeSectionId = navSections[0].id;
+
+  navSections.forEach((section) => {
+    if (section.offsetTop <= probeY) {
+      activeSectionId = section.id;
+    }
+  });
+
+  navLinks.forEach((link) => {
+    const isActive = link.getAttribute("href") === `#${activeSectionId}`;
+    link.classList.toggle("is-active", isActive);
+  });
+};
 
 function updatePresentationButtonLabel() {
   if (!presentationToggle) {
@@ -179,10 +180,15 @@ const onScroll = () => {
   scrollTicking = true;
   requestAnimationFrame(() => {
     updateScrollProgress();
+    updateActiveNavLink();
     scrollTicking = false;
   });
 };
 
 updateScrollProgress();
+updateActiveNavLink();
 window.addEventListener("scroll", onScroll, { passive: true });
-window.addEventListener("resize", updateScrollProgress);
+window.addEventListener("resize", () => {
+  updateScrollProgress();
+  updateActiveNavLink();
+});
