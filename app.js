@@ -1,6 +1,7 @@
 const body = document.body;
 const html = document.documentElement;
 const langButtons = document.querySelectorAll("[data-lang-btn]");
+const navLinks = document.querySelectorAll("[data-nav-link]");
 const counters = document.querySelectorAll(".stat-value[data-target]");
 const revealElements = document.querySelectorAll(".reveal");
 const scrollProgressBar = document.getElementById("scroll-progress-bar");
@@ -86,6 +87,35 @@ const counterObserver = new IntersectionObserver(
 
 counters.forEach((counter) => {
   counterObserver.observe(counter);
+});
+
+const navObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      const sectionId = entry.target.id;
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === `#${sectionId}`;
+        link.classList.toggle("is-active", isActive);
+      });
+    });
+  },
+  { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+);
+
+navLinks.forEach((link) => {
+  const targetId = link.getAttribute("href")?.replace("#", "");
+  if (!targetId) {
+    return;
+  }
+  const section = document.getElementById(targetId);
+  if (!section) {
+    return;
+  }
+  navObserver.observe(section);
 });
 
 const updateScrollProgress = () => {

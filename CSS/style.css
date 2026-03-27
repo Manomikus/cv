@@ -138,16 +138,37 @@ img {
 }
 
 .topnav a {
+  position: relative;
   text-decoration: none;
-  font-weight: 600;
-  color: #1f2937;
-  opacity: 0.8;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  font-weight: 700;
+  color: #1f3951;
+  opacity: 0.72;
+  padding: 6px 2px;
+  transition: opacity 0.2s ease;
 }
 
+.topnav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #2f6089, var(--teal), var(--orange));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.24s ease;
+}
+
+.topnav a.is-active,
 .topnav a:hover {
   opacity: 1;
-  transform: translateY(-1px);
+  color: #0f2d47;
+}
+
+.topnav a.is-active::after,
+.topnav a:hover::after {
+  transform: scaleX(1);
 }
 
 .lang-switch {
