@@ -147,7 +147,7 @@ function setupPreloader() {
 
   let didClose = false;
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-  const minimumVisibleMs = prefersReducedMotion ? 420 : 3000;
+  const minimumVisibleMs = prefersReducedMotion ? 420 : 3800;
 
   const closePreloader = () => {
     if (didClose) {
