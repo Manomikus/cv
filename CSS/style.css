@@ -578,6 +578,12 @@ h3 {
   letter-spacing: 0.02em;
 }
 
+.contact-action-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
 .contact-action--email .contact-action-icon {
   background: linear-gradient(130deg, #0ea5e9, #0369a1);
 }
