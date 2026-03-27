@@ -361,12 +361,17 @@ h3 {
   font-size: clamp(1.35rem, 2vw, 2.2rem);
   font-weight: 700;
   max-width: 100%;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: normal;
+  word-break: normal;
   line-height: 1.06;
   background: linear-gradient(132deg, var(--teal), #0ea5e9, var(--orange));
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.stat-value[data-suffix*="plateformes"],
+.stat-value[data-suffix*="platforms"] {
+  font-size: clamp(1.22rem, 1.72vw, 1.95rem);
 }
 
 .stat-label {
