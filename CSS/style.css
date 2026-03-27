@@ -29,6 +29,7 @@ body {
   color: var(--text);
   background: linear-gradient(160deg, #ecf8f6 0%, #fdf8f1 45%, #eef3ff 100%);
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
 }

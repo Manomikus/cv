@@ -19,7 +19,6 @@ const themeMediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-sc
 
 let currentLanguage = "fr";
 let lastContactTrigger = null;
-let contactHideTimer = null;
 
 const applyLanguage = (lang) => {
   const target = lang === "en" ? "en" : "fr";
@@ -256,17 +255,7 @@ const closeContactMenu = (focusTrigger = true) => {
 
   contactMenu.classList.remove("is-open");
   body.classList.remove("contact-menu-open");
-
-  if (contactHideTimer) {
-    clearTimeout(contactHideTimer);
-  }
-
-  contactHideTimer = window.setTimeout(() => {
-    if (contactMenu.classList.contains("is-open")) {
-      return;
-    }
-    contactMenu.hidden = true;
-  }, 240);
+  contactMenu.hidden = true;
 
   if (focusTrigger && lastContactTrigger instanceof HTMLElement) {
     lastContactTrigger.focus();
@@ -276,11 +265,6 @@ const closeContactMenu = (focusTrigger = true) => {
 const openContactMenu = (trigger) => {
   if (!contactMenu) {
     return;
-  }
-
-  if (contactHideTimer) {
-    clearTimeout(contactHideTimer);
-    contactHideTimer = null;
   }
 
   lastContactTrigger = trigger instanceof HTMLElement ? trigger : null;
@@ -317,6 +301,15 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   closeContactMenu();
+});
+
+window.addEventListener("pageshow", () => {
+  if (!contactMenu) {
+    return;
+  }
+  contactMenu.classList.remove("is-open");
+  contactMenu.hidden = true;
+  body.classList.remove("contact-menu-open");
 });
 
 const setupMagneticCards = () => {
