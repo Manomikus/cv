@@ -56,7 +56,7 @@ img {
   display: block;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, #285c88, #4f8ec2, #b4883d);
+  background: linear-gradient(90deg, var(--teal), #0ea5e9, var(--orange));
   transition: width 0.1s linear;
 }
 
