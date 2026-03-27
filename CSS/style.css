@@ -61,6 +61,53 @@ img {
   transition: width 0.1s linear;
 }
 
+.back-to-top {
+  position: fixed;
+  right: max(14px, env(safe-area-inset-right));
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #1f3f59;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 42;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.18);
+  opacity: 0;
+  transform: translateY(12px) scale(0.94);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  box-shadow: 0 14px 26px rgba(15, 23, 42, 0.22);
+  border-color: rgba(15, 118, 110, 0.35);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid rgba(15, 118, 110, 0.5);
+  outline-offset: 2px;
+}
+
+body:not(.presentation-mode) .back-to-top {
+  display: none;
+}
+
 .bg-orb {
   position: fixed;
   z-index: -3;
@@ -1114,6 +1161,18 @@ body.theme-dark .presentation-btn.is-active {
   background: linear-gradient(130deg, #0b3f5d, #0f766e);
   border-color: transparent;
   color: #ffffff;
+}
+
+body.theme-dark .back-to-top {
+  background: rgba(11, 23, 37, 0.9);
+  border-color: rgba(148, 163, 184, 0.28);
+  color: #dbe9fa;
+  box-shadow: 0 14px 28px rgba(1, 6, 12, 0.5);
+}
+
+body.theme-dark .back-to-top:hover {
+  border-color: rgba(94, 234, 212, 0.48);
+  box-shadow: 0 16px 30px rgba(1, 6, 12, 0.62);
 }
 
 body.theme-dark .hero-copy,

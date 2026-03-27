@@ -7,6 +7,7 @@ const revealElements = document.querySelectorAll(".reveal");
 const scrollProgressBar = document.getElementById("scroll-progress-bar");
 const themeToggle = document.getElementById("theme-toggle");
 const presentationToggle = document.getElementById("presentation-toggle");
+const backToTopButton = document.getElementById("back-to-top");
 const contactTriggers = document.querySelectorAll("[data-contact-trigger]");
 const contactMenu = document.getElementById("contact-menu");
 const contactMenuPanel = contactMenu?.querySelector(".contact-menu-panel") || null;
@@ -35,6 +36,7 @@ const applyLanguage = (lang) => {
   });
 
   window.localStorage.setItem("cv-language", target);
+  updateBackToTopButtonLabel();
   updateThemeButtonLabel();
   updatePresentationButtonLabel();
 };
@@ -150,6 +152,26 @@ function updateThemeButtonLabel() {
   themeToggle.setAttribute("aria-pressed", isDarkMode ? "true" : "false");
 }
 
+function updateBackToTopButtonLabel() {
+  if (!backToTopButton) {
+    return;
+  }
+
+  const label = currentLanguage === "fr" ? "Retour en haut" : "Back to top";
+  backToTopButton.setAttribute("aria-label", label);
+  backToTopButton.setAttribute("title", label);
+}
+
+const updateBackToTopVisibility = () => {
+  if (!backToTopButton) {
+    return;
+  }
+
+  const threshold = Math.max(220, window.innerHeight * 0.65);
+  const shouldShow = body.classList.contains("presentation-mode") && window.scrollY > threshold;
+  backToTopButton.classList.toggle("is-visible", shouldShow);
+};
+
 function applyTheme(theme) {
   const target = theme === "dark" ? "dark" : "light";
   body.classList.toggle("theme-dark", target === "dark");
@@ -207,6 +229,7 @@ function setPresentationMode(enabled) {
   body.classList.toggle("presentation-mode", enabled);
   window.localStorage.setItem("cv-v1-presentation-mode", enabled ? "on" : "off");
   updatePresentationButtonLabel();
+  updateBackToTopVisibility();
 }
 
 if (presentationToggle) {
@@ -305,12 +328,24 @@ document.addEventListener("keydown", (event) => {
 
 window.addEventListener("pageshow", () => {
   if (!contactMenu) {
+    updateBackToTopVisibility();
     return;
   }
   contactMenu.classList.remove("is-open");
   contactMenu.hidden = true;
   body.classList.remove("contact-menu-open");
+  updateBackToTopVisibility();
 });
+
+if (backToTopButton) {
+  backToTopButton.addEventListener("click", () => {
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  });
+}
 
 const setupMagneticCards = () => {
   magneticCards.forEach((card) => {
@@ -362,6 +397,7 @@ const onScroll = () => {
   requestAnimationFrame(() => {
     updateScrollProgress();
     updateActiveNavLink();
+    updateBackToTopVisibility();
     if (contactMenu && !contactMenu.hidden) {
       positionContactMenu();
     }
@@ -371,11 +407,14 @@ const onScroll = () => {
 
 updateScrollProgress();
 updateActiveNavLink();
+updateBackToTopButtonLabel();
+updateBackToTopVisibility();
 setupMagneticCards();
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", () => {
   updateScrollProgress();
   updateActiveNavLink();
+  updateBackToTopVisibility();
   if (contactMenu && !contactMenu.hidden) {
     positionContactMenu();
   }
