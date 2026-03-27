@@ -745,13 +745,9 @@ h3 {
   border: 1px solid rgba(15, 23, 42, 0.1);
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.72));
   padding: 18px;
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(15, 118, 110, 0.4);
-  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.1);
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .project-card h3 {
@@ -838,6 +834,9 @@ h3 {
   border: 1px solid rgba(15, 23, 42, 0.1);
   background: rgba(255, 255, 255, 0.82);
   padding: 18px;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .skill-panel h3,
@@ -868,6 +867,30 @@ h3 {
   padding: 18px;
   position: relative;
   overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card::after,
+.timeline-item::after,
+.skill-panel::after,
+.edu-card::after,
+.mission-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.28), transparent 56%);
+}
+
+.project-card:hover,
+.timeline-item:hover,
+.skill-panel:hover,
+.edu-card:hover,
+.mission-card:hover {
+  border-color: rgba(15, 118, 110, 0.35);
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.11);
 }
 
 .timeline-item::before {

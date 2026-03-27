@@ -11,6 +11,9 @@ const contactMenu = document.getElementById("contact-menu");
 const contactMenuPanel = contactMenu?.querySelector(".contact-menu-panel") || null;
 const contactDismissButtons = contactMenu ? contactMenu.querySelectorAll("[data-contact-dismiss]") : [];
 const contactActionLinks = contactMenu ? contactMenu.querySelectorAll(".contact-action") : [];
+const magneticCards = document.querySelectorAll(
+  ".project-card, .timeline-item, .skill-panel, .edu-card, .mission-card"
+);
 
 let currentLanguage = "fr";
 let lastContactTrigger = null;
@@ -265,6 +268,34 @@ document.addEventListener("keydown", (event) => {
   closeContactMenu();
 });
 
+const setupMagneticCards = () => {
+  magneticCards.forEach((card) => {
+    const strength = Number(card.dataset.magneticStrength || 8);
+
+    card.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") {
+        return;
+      }
+
+      const rect = card.getBoundingClientRect();
+      const relativeX = (event.clientX - rect.left) / rect.width;
+      const relativeY = (event.clientY - rect.top) / rect.height;
+      const offsetX = (relativeX - 0.5) * 2 * strength;
+      const offsetY = (relativeY - 0.5) * 2 * strength;
+
+      card.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
+      card.style.setProperty("--mx", `${Math.round(relativeX * 100)}%`);
+      card.style.setProperty("--my", `${Math.round(relativeY * 100)}%`);
+    });
+
+    card.addEventListener("pointerleave", () => {
+      card.style.transform = "translate3d(0, 0, 0)";
+      card.style.setProperty("--mx", "50%");
+      card.style.setProperty("--my", "50%");
+    });
+  });
+};
+
 const updateScrollProgress = () => {
   if (!scrollProgressBar) {
     return;
@@ -296,6 +327,7 @@ const onScroll = () => {
 
 updateScrollProgress();
 updateActiveNavLink();
+setupMagneticCards();
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", () => {
   updateScrollProgress();
