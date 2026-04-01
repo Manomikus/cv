@@ -1219,6 +1219,14 @@ h3 {
   color: #334155;
 }
 
+.timeline-label {
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #0f766e;
+}
+
 .mission-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1561,6 +1569,10 @@ body.theme-dark .footer p,
 body.theme-dark .contact-action-copy span,
 body.theme-dark .contact-menu-intro {
   color: #adbed2;
+}
+
+body.theme-dark .timeline-label {
+  color: #8ef1e3;
 }
 
 body.theme-dark .project-card > a,
